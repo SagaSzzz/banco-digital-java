@@ -21,7 +21,7 @@ public class BancoService {
             if (conta.getNumero() == numero){
                 return conta;
             }
-        } throw new RuntimeException("CONTA NAO ENCONTRADA");
+        } throw new RuntimeException(": CONTA NAO ENCONTRADA");
     }
 
     public void listarConta(){
