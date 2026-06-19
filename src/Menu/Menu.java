@@ -54,7 +54,10 @@ private void iniciarEscolha(){
                 transferir();
             } else if (opcao == 6) {
                 sacar();
-            } else {
+            }else if (opcao == 0) {
+                break;
+            }
+            else {
                 System.out.println("OPCAO INVALIDA");
             }
         } catch (RuntimeException erro){
@@ -81,7 +84,7 @@ public void criarConta(){
     String email = scanner.next();
     scanner.nextLine();
 
-    Cliente cliente = new Cliente(nome, cpf, telefone, email;
+    Cliente cliente = new Cliente(nome, cpf, telefone, email);
     Conta contacriada = bancoService.criarConta(cliente);
     System.out.println("CONTA CRIADA COM SUCESSO");
     System.out.println("Conta N: " + contacriada.getNumero());

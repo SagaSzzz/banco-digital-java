@@ -1,5 +1,6 @@
 package service;
 
+import exception.ContaNaoAchadaException;
 import model.Cliente;
 import model.Conta;
 
@@ -21,7 +22,7 @@ public class BancoService {
             if (conta.getNumero() == numero){
                 return conta;
             }
-        } throw new RuntimeException(": CONTA NAO ENCONTRADA");
+        } throw new ContaNaoAchadaException(": CONTA NAO ENCONTRADA");
     }
 
     public void listarConta(){
