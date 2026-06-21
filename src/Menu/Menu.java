@@ -28,6 +28,7 @@ private void listadeEscolha(){
     System.out.println("4- DEPOSITAR DINHEIRO");
     System.out.println("5- TRANSFERIR DINHEIRO");
     System.out.println("6- SACAR DINHEIRO");
+    System.out.println("7- VER EXTRATO");
     System.out.println("0- SAIR");
 }
 
@@ -40,8 +41,6 @@ private void iniciarEscolha(){
         scanner.nextLine();
 
         try {
-
-
             if (opcao == 1) {
                 criarConta();
             } else if (opcao == 2) {
@@ -56,6 +55,9 @@ private void iniciarEscolha(){
                 sacar();
             }else if (opcao == 0) {
                 break;
+            }
+            else if (opcao == 7){
+                verExtrato();
             }
             else {
                 System.out.println("OPCAO INVALIDA");
@@ -149,8 +151,15 @@ private void transferir(){
     contaPG.transferirSaldo(contaRC, valorTransferencia);
 
     System.out.println("TRANSFERENCIA BEM SUCEDIDA");
+}
 
+public void verExtrato(){
+    System.out.println("DIGITE O NUMERO DA CONTA");
+    int numero = scanner.nextInt();
+    scanner.nextLine();
 
+    Conta conta = bancoService.procurarPorId(numero);
+    conta.mostrarExtrato();
 }
 
 
