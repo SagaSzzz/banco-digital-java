@@ -7,7 +7,7 @@ import Enum.StatusTransacao;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Conta {
+public abstract class Conta {
     private static int contador = 1;
     private double saldo;
     private Cliente titular;
@@ -43,14 +43,17 @@ public class Conta {
     public void transferirSaldo(Conta contaCliente, double valor){
         this.sacar(valor);
         contaCliente.depositar(valor);
+
+        this.saldo -= valor;
+        contaCliente.saldo += valor;
+
+        this.extrato.add(new Transacao(StatusTransacao.TRANSFERENCIA_ENVIADA, valor));
+        contaCliente.extrato.add(new Transacao(StatusTransacao.TRANSFERENCIA_RECEBIDA, valor));
+
     }
 
     public void mostrarExtrato(){
         System.out.println("-----------EXTRATO DA CONTA " + numero + "---------");
-        if (extrato.isEmpty()){
-            System.out.println("EXTRATO NAO ENCONTRADO");
-            return;
-        }
         for (Transacao transacao : extrato){
             System.out.println("Tipo: " + transacao.getTipo());
             System.out.println("Valor: R$ " + transacao.getValor());
@@ -70,4 +73,6 @@ public class Conta {
     public int getNumero() {
         return numero;
     }
+
+    public abstract String getTipoConta();
 }

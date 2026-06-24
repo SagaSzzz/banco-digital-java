@@ -4,7 +4,6 @@ import model.Cliente;
 import model.Conta;
 import service.BancoService;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Menu {
@@ -86,11 +85,29 @@ public void criarConta(){
     String email = scanner.next();
     scanner.nextLine();
 
-    Cliente cliente = new Cliente(nome, cpf, telefone, email);
-    Conta contacriada = bancoService.criarConta(cliente);
-    System.out.println("CONTA CRIADA COM SUCESSO");
-    System.out.println("Conta N: " + contacriada.getNumero());
+    System.out.println("TIPO DE CONTA");
+    System.out.println("1 - CONTA CORRENTE / 2 - CONTA POUPANCA");
+    int opcaoConta = scanner.nextInt();
+    scanner.nextLine();
 
+    Cliente cliente = new Cliente(nome, cpf, telefone, email);
+
+    Conta contaCriada;
+
+    if (opcaoConta == 1) {
+        contaCriada = bancoService.criarConta(cliente);
+    }
+    if (opcaoConta == 2) {
+       contaCriada = bancoService.criarContaPoupanca(cliente);
+    }
+    else {
+        System.out.println("OPCAO INVALIDA");
+        return;
+    }
+
+    System.out.println("CONTA CRIADA COM SUCESSO");
+    System.out.println("Conta N: " + contaCriada.getNumero());
+    System.out.println("Conta N: " + contaCriada.getTipoConta());
 }
 
 
