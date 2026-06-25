@@ -2,7 +2,7 @@ package model;
 
 import exception.SaldoInsuficienteException;
 import exception.ValorInvalidoException;
-import Enum.StatusTransacao;
+import enums.StatusTransacao;
 
 import java.util.ArrayList;
 import java.util.List;

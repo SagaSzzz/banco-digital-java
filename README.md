@@ -42,7 +42,7 @@ src/
 │   └── Transacao.java
 ├── service/
 │   └── BancoService.java
-├── view/
+├── menu/
 │   └── Menu.java
 ├── exception/
 │   ├── ContaNaoAchadaException.java

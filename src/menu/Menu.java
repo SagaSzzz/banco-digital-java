@@ -1,4 +1,4 @@
-package Menu;
+package menu;
 
 import model.Cliente;
 import model.Conta;

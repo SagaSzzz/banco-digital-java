@@ -1,9 +1,8 @@
 package model;
 
-import Enum.StatusTransacao;
+import enums.StatusTransacao;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Transacao {
     private LocalDate data;
