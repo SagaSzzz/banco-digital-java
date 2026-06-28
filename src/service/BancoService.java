@@ -2,7 +2,7 @@ package service;
 
 import exception.ContaComSaldoException;
 import exception.ContaNaoAchadaException;
-import exception.NumeroContaInvalido;
+import exception.NumeroContaInvalidoException;
 import model.Cliente;
 import model.Conta;
 import model.ContaCorrente;
@@ -31,7 +31,7 @@ public class BancoService {
         try{
             numeroConvertido  = Integer.parseInt(numero);
         } catch (NumberFormatException erro){
-            throw new NumeroContaInvalido("NUMERO DA CONTA INVALIDO");
+            throw new NumeroContaInvalidoException("NUMERO DA CONTA INVALIDO");
         }
         for (Conta conta : contas){
             if (conta.getNumero() == numeroConvertido){

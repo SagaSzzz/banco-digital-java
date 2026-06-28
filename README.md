@@ -48,6 +48,8 @@ src/
 │   ├── ContaNaoAchadaException.java
 │   ├── SaldoInsuficienteException.java
 │   └── ValorInvalidoException.java
+│   └── ContaComSaldoException.java
+│   └── NumeroContaInvalidoException.java
 ├── enums/
 │   └── StatusTransacao.java
 └── Main.java
