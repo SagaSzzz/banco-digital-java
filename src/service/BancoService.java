@@ -1,6 +1,8 @@
 package service;
 
+import exception.ContaComSaldoException;
 import exception.ContaNaoAchadaException;
+import exception.NumeroContaInvalido;
 import model.Cliente;
 import model.Conta;
 import model.ContaCorrente;
@@ -24,9 +26,15 @@ public class BancoService {
         return conta;
     }
 
-    public Conta procurarPorId(int numero){
+    public Conta procurarPorId(String numero){
+        int numeroConvertido;
+        try{
+            numeroConvertido  = Integer.parseInt(numero);
+        } catch (NumberFormatException erro){
+            throw new NumeroContaInvalido("NUMERO DA CONTA INVALIDO");
+        }
         for (Conta conta : contas){
-            if (conta.getNumero() == numero){
+            if (conta.getNumero() == numeroConvertido){
                 return conta;
             }
         } throw new ContaNaoAchadaException(": CONTA NAO ENCONTRADA");
@@ -46,6 +54,13 @@ public class BancoService {
         }
     }
 
+    public void deletarConta(String numero){
+        Conta conta = procurarPorId(numero);
 
+        if (conta.getSaldo() > 0){
+            throw new ContaComSaldoException("CONTA COM SALDO NAO PODE SER EXCLUIDA");
+        }
+        contas.remove(conta);
+    }
 
 }

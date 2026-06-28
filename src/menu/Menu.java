@@ -21,44 +21,53 @@ public class Menu {
 
 private void listadeEscolha(){
     System.out.println("ESCOLHA UMA OPCAO:\n");
-    System.out.println("1- CRIAR CONTA");
-    System.out.println("2- BUSCAR CONTA");
-    System.out.println("3- LISTAR CONTA");
-    System.out.println("4- DEPOSITAR DINHEIRO");
-    System.out.println("5- TRANSFERIR DINHEIRO");
-    System.out.println("6- SACAR DINHEIRO");
-    System.out.println("7- VER EXTRATO");
-    System.out.println("0- SAIR");
+    System.out.println("1- Criar conta");
+    System.out.println("2- Buscar conta");
+    System.out.println("3- Listar conta");
+    System.out.println("4- Deposito");
+    System.out.println("5- Transferencia");
+    System.out.println("6- Saque");
+    System.out.println("7- Deletar conta");
+    System.out.println("8- Conferir extrato");
+    System.out.println("0- Sair");
 }
 
 
 private void iniciarEscolha(){
-    int opcao = -1;
-    while (opcao !=0) {
+    int numero = -1;
+    while (numero !=0) {
         listadeEscolha();
-        opcao = scanner.nextInt();
+        String opcao = scanner.next();
         scanner.nextLine();
 
         try {
-            if (opcao == 1) {
+            if (opcao.equals("1")) {
                 criarConta();
-            } else if (opcao == 2) {
+            }
+            else if (opcao.equals("2")) {
                 buscarContaPorNumero();
-            } else if (opcao == 3) {
+            }
+            else if (opcao.equals("3")) {
                 bancoService.listarConta();
-            } else if (opcao == 4) {
+            }
+            else if (opcao.equals("4")) {
                 depositar();
-            } else if (opcao == 5) {
-                transferir();
-            } else if (opcao == 6) {
+            }
+            else if (opcao.equals("5")) {
+             transferir();
+            }
+            else if (opcao.equals("6")) {
                 sacar();
-            }else if (opcao == 0) {
-                break;
             }
-            else if (opcao == 7){
+            else if (opcao.equals("7")) {
+                deletarConta();
+            }
+            else if (opcao.equals("8")) {
                 verExtrato();
-            }
-            else {
+            } else if (opcao.equals("0")) {
+                break;
+
+            } else {
                 System.out.println("OPCAO INVALIDA");
             }
         } catch (RuntimeException erro){
@@ -87,17 +96,17 @@ public void criarConta(){
 
     System.out.println("TIPO DE CONTA");
     System.out.println("1 - CONTA CORRENTE / 2 - CONTA POUPANCA");
-    int opcaoConta = scanner.nextInt();
+    String opcaoConta = scanner.next();
     scanner.nextLine();
 
     Cliente cliente = new Cliente(nome, cpf, telefone, email);
 
     Conta contaCriada;
 
-    if (opcaoConta == 1) {
+    if (opcaoConta.equals("1")) {
         contaCriada = bancoService.criarConta(cliente);
     }
-    if (opcaoConta == 2) {
+    else if (opcaoConta.equals("2")) {
        contaCriada = bancoService.criarContaPoupanca(cliente);
     }
     else {
@@ -113,7 +122,9 @@ public void criarConta(){
 
 public void buscarContaPorNumero(){
     System.out.println("DIGITE O NUMERO DA CONTA");
-    int escolha = scanner.nextInt();
+    String escolha = scanner.next();
+    scanner.nextLine();
+
     Conta conta = bancoService.procurarPorId(escolha);
     Cliente titular = conta.getTitular();
     System.out.println("Conta: " + conta.getNumero());
@@ -127,7 +138,7 @@ public void buscarContaPorNumero(){
 
 private void sacar(){
     System.out.println("NUMERO DA CONTA");
-    int numeroConta = scanner.nextInt();
+    String numeroConta = scanner.next();
     scanner.nextLine();
     System.out.println("VALOR DO SAQUE");
     double valorSaque = scanner.nextDouble();
@@ -140,23 +151,23 @@ private void sacar(){
 
 private void depositar(){
     System.out.println("NUMERO DA CONTA:");
-    int numeroConta = scanner.nextInt();
+    String numeroConta = scanner.next();
     scanner.nextLine();
     System.out.println("QUANTO VOCE DESEJA DEPOSITAR?");
     double escolha = scanner.nextDouble();
     scanner.nextLine();
-Conta conta = bancoService.procurarPorId(numeroConta);
-conta.depositar(escolha);
+    Conta conta = bancoService.procurarPorId(numeroConta);
+    conta.depositar(escolha);
     System.out.println("DEPOSITO BEM SUCEDIDO");
 }
 
 private void transferir(){
     System.out.println("QUAL CONTA DESEJA TRANSFERIR O SALDO?");
-    int contaPagamento = scanner.nextInt();
+    String contaPagamento = scanner.next();
     scanner.nextLine();
 
     System.out.println("QUAL CONTA DESEJA RECEBER A TRANSFERENCIA?");
-    int contaRecebimeto = scanner.nextInt();
+    String contaRecebimeto = scanner.next();
     scanner.nextLine();
 
     System.out.println("QUAL VALOR DA TRANSFERENCIA?");
@@ -172,14 +183,32 @@ private void transferir(){
 
 public void verExtrato(){
     System.out.println("DIGITE O NUMERO DA CONTA");
-    int numero = scanner.nextInt();
+    String numero = scanner.next();
     scanner.nextLine();
 
     Conta conta = bancoService.procurarPorId(numero);
     conta.mostrarExtrato();
 }
 
+    private void deletarConta(){
+        System.out.println("DIGITE O NUMERO DA CONTA:");
+        String numeroConta = scanner.next();
+        scanner.nextLine();
 
+        System.out.println("TEM CERTEZA QUE DESEJA EXCLUIR A CONTA? (1 - SIM / 2- NAO)");
+        String opcao = scanner.next();
+        scanner.nextLine();
+
+        if (opcao.equals("1")){
+            bancoService.deletarConta(numeroConta);
+            System.out.println("CONTA EXCLUIDA COM SUCESSO.");
+        } else if (opcao.equals("2")){
+            System.out.println("OPERACAO CANCELADA.");
+        } else {
+            System.out.println("OPERACAO INVALIDA, CANCELADA.");
+        }
+
+    }
 
 
 }
